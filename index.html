@@ -60,6 +60,22 @@
             color: #8b5cf6;
         }
 
+        /* Hamburger Menu Icon (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #cbd5e1;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
         /* Hero Section */
         .hero {
             padding: 100px 10%;
@@ -140,7 +156,7 @@
         }
 
         .card h3 {
-            color: #38bdf8; /* Cyan accent for subheadings */
+            color: #38bdf8;
             margin-bottom: 15px;
             font-size: 1.5rem;
         }
@@ -150,7 +166,7 @@
             font-size: 1rem;
         }
 
-        /* About & Contact Section */
+        /* About Section */
         .about-section {
             padding: 80px 10%;
             max-width: 1000px;
@@ -282,15 +298,39 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             header {
-                flex-direction: column;
-                padding: 20px;
+                padding: 20px 5%;
             }
+            
+            /* Show the hamburger menu button */
+            .menu-toggle {
+                display: flex;
+            }
+
+            /* Hide the links by default and set them up as a dropdown menu */
             .nav-links {
-                margin-top: 15px;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(11, 15, 25, 0.98);
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+                border-bottom: 1px solid #1e293b;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             }
+
+            /* This class is added by Javascript when the button is clicked */
+            .nav-links.active {
+                display: flex;
+            }
+
             .nav-links a {
-                margin: 0 10px;
+                margin: 15px 0;
+                font-size: 1.1rem;
             }
+
             h1 {
                 font-size: 2.5rem;
             }
@@ -315,7 +355,14 @@
 
     <header>
         <a href="#" class="logo">cryptism.in</a>
-        <div class="nav-links">
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <div class="nav-links" id="nav-links">
             <a href="#services">Services</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
@@ -372,7 +419,7 @@
             
             <div class="contact-wrapper">
                 <div id="contact" class="contact-info">
-                    <p style="margin-bottom: 10px; color: #94a3b8; font-size: 0.9rem;">Reach out for consultancy or speaking engagements:</p>
+                    <p style="margin-bottom: 10px; color: #94a3b8; font-size: 0.9rem;">Reach out to us at:</p>
                     <a href="mailto:cryptism.in@gmail.com">cryptism.in@gmail.com</a>
                 </div>
             </div>
@@ -380,8 +427,24 @@
     </main>
 
     <footer>
-        &copy; 2026 Cryptism.in. All rights reserved. | Securing Data in The Quantum Era.
+        &copy; 2026 Cryptism.in. All rights reserved.
     </footer>
 
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        // Toggle the menu when the hamburger icon is clicked
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Automatically close the menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
