@@ -167,33 +167,45 @@
         /* About Section */
         .about-section {
             padding: 80px 10%;
-            max-width: 1000px;
+            max-width: 1200px; /* Slightly wider to accommodate side-by-side profiles comfortably */
             margin: 0 auto;
         }
 
         .about-section h2.section-title {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+        }
+
+        /* Grid container for side-by-side founders */
+        .founders-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 equal columns on desktop */
+            gap: 30px;
+            margin-bottom: 20px;
         }
 
         .founder-profile {
             display: flex;
+            flex-direction: column; /* Stack vertically for better fit */
             align-items: center;
-            gap: 40px;
             background: #1e293b;
-            padding: 40px;
+            padding: 40px 30px;
             border-radius: 12px;
             border: 1px solid #334155;
-            margin-bottom: 30px; /* Reduced to accommodate multiple profiles nicely */
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .founder-profile:hover {
+            transform: translateY(-5px);
         }
 
         .founder-image-container {
-            flex-shrink: 0;
+            margin-bottom: 25px;
         }
 
         .founder-image {
-            width: 220px;
-            height: 220px;
+            width: 180px; /* Scaled down slightly to look good in a column */
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #8b5cf6;
@@ -201,11 +213,11 @@
         }
 
         .founder-text {
-            text-align: left;
+            text-align: center; /* Center align text */
         }
 
         .founder-text h3 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #f8fafc;
             margin-bottom: 5px;
             line-height: 1.2;
@@ -222,13 +234,15 @@
 
         .founder-text p {
             color: #cbd5e1;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.7;
+            margin-bottom: 12px;
         }
 
         /* Social Links */
         .social-links {
             display: flex;
+            justify-content: center; /* Center the icons */
             gap: 15px;
             margin-top: 25px;
         }
@@ -336,16 +350,11 @@
             .hero, .services, .about-section {
                 padding: 50px 5%;
             }
-            .founder-profile {
-                flex-direction: column;
-                text-align: center;
-                padding: 30px 20px;
-            }
-            .founder-text {
-                text-align: center;
-            }
-            .social-links {
-                justify-content: center;
+            
+            /* Stack founders into a single column on mobile */
+            .founders-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
         }
     </style>
@@ -396,47 +405,50 @@
         <section id="about" class="about-section">
             <h2 class="section-title">About the Founders</h2>
             
-            <div class="founder-profile">
-                <div class="founder-image-container">
-                    <img src="shivamk.jpg" alt="Shivam Kumar" class="founder-image">
-                </div>
-                <div class="founder-text">
-                    <h3>Shivam Kumar</h3>
-                    <p class="founder-title">PhD Candidate in Applied Cryptography</p>
-                    <p>Shivam is a PhD researcher in lattice-based cryptography and founder of Cryptism.in, bridging academic research and enterprise security to enable the transition to quantum-secure, privacy-preserving systems.</p>
-                    
-                    <div class="social-links">
-                        <a href="https://in.linkedin.com/in/shivamkr6" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                        </a>
-                        <a href="https://github.com/gitshivamk" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </a>
+            <div class="founders-container">
+                
+                <div class="founder-profile">
+                    <div class="founder-image-container">
+                        <img src="shivamk.jpg" alt="Shivam Kumar" class="founder-image">
+                    </div>
+                    <div class="founder-text">
+                        <h3>Shivam Kumar</h3>
+                        <p class="founder-title">PhD Candidate in Applied Cryptography</p>
+                        <p>Shivam is a PhD researcher in lattice-based cryptography and founder of Cryptism.in, bridging academic research and enterprise security to enable the transition to quantum-secure, privacy-preserving systems.</p>
+                        
+                        <div class="social-links">
+                            <a href="https://in.linkedin.com/in/shivamkr6" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            </a>
+                            <a href="https://github.com/gitshivamk" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+                                <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="founder-profile">
-                <div class="founder-image-container">
-                    <img src="shashank.jpeg" alt="[Co-Founder Name]" class="founder-image">
-                </div>
-                <div class="founder-text">
-                    <h3>Shashank Tiwari</h3>
-                    <p class="founder-title">Tech Enthusiast</p>
-                    <p>With a foundational B.Tech in Electrical & Electronics Engineering, Shashank brings a critical, hardware-centric perspective to the cryptographic landscape. Their profound passion for data security bridges the gap between theoretical mathematics and secure physical implementation.</p>
-                    
-                    <div class="social-links">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </a>
+                <div class="founder-profile">
+                    <div class="founder-image-container">
+                        <img src="shashank.jpeg" alt="Shashank Tiwari" class="founder-image">
+                    </div>
+                    <div class="founder-text">
+                        <h3>Shashank Tiwari</h3>
+                        <p class="founder-title">Tech Enthusiast</p>
+                        <p>With a foundational B.Tech in Electrical & Electronics Engineering, Shashank brings a critical, hardware-centric perspective to the cryptographic landscape.</p>
+                        <p>Their profound passion for data security bridges the gap between theoretical mathematics and secure physical implementation.</p>
+                        
+                        <div class="social-links">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+                                <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             
-            <div class="contact-wrapper">
+            </div> <div class="contact-wrapper">
                 <div id="contact" class="contact-info">
                     <p style="margin-bottom: 10px; color: #94a3b8; font-size: 0.9rem;">Reach out to us at:</p>
                     <a href="mailto:cryptism.in@gmail.com">cryptism.in@gmail.com</a>
